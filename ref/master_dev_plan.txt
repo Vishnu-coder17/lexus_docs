@@ -1,0 +1,1042 @@
+Below is a **complete Lexus Docs Master Plan** based on everything you've built so far.
+
+---
+
+# Lexus Docs — Complete Development Master Plan
+
+Project: **Lexus Docs**
+Type: Block-based document editor
+Goal: Combine ideas from editors like Google Docs and Notion.
+
+Core idea:
+
+```
+Document Model → Rendering Engine → Editor UI
+```
+
+---
+
+# Current Architecture
+
+Your editor currently works like this:
+
+```
+Editor
+│
+├ Document Model
+│
+├ Rendering Engine
+│
+├ Block Engine
+│
+├ Formatting Engine
+│
+├ Slash Command Engine
+│
+└ Storage Engine
+```
+
+---
+
+# Current Document Model
+
+```
+documentModel
+│
+├ order []
+│
+└ blocks {}
+
+block
+│
+├ id
+├ type
+└ data
+     └ text
+```
+
+Example:
+
+```
+documentModel
+
+order:
+["block1","block2"]
+
+blocks:
+
+block1
+type: paragraph
+text: Hello
+
+block2
+type: heading
+text: Title
+```
+
+---
+
+# Current Working Features
+
+### Block Editor Core
+
+Functions:
+
+```
+createBlock()
+renderDocument()
+mergeWithPreviousBlock()
+moveCursorToPreviousBlock()
+moveCursorToNextBlock()
+```
+
+Features:
+
+```
+Paragraph blocks
+Heading blocks
+Enter → split block
+Backspace → merge block
+Arrow navigation
+```
+
+---
+
+### Formatting Engine
+
+Features:
+
+```
+Bold
+Italic
+Underline
+```
+
+Functions:
+
+```
+applyBold()
+applyItalic()
+applyUnderline()
+```
+
+Keyboard shortcuts:
+
+```
+Ctrl + B
+Ctrl + I
+Ctrl + U
+```
+
+---
+
+### Toolbar System
+
+UI:
+
+```
+Toolbar
+│
+├ Add Paragraph
+├ Add Heading
+├ Bold
+├ Italic
+└ Underline
+```
+
+Functions:
+
+```
+button.onclick
+→ formatting functions
+```
+
+---
+
+### Slash Command System (V4)
+
+Trigger:
+
+```
+/
+```
+
+Menu:
+
+```
+Heading
+Paragraph
+```
+
+Functions:
+
+```
+showSlashMenu()
+hideSlashMenu()
+slash command click handler
+```
+
+System variable:
+
+```
+activeSlashBlock
+```
+
+---
+
+# Current Core Functions
+
+These are the **core engine functions your editor depends on**.
+
+```
+createId()
+createBlock()
+renderDocument()
+
+mergeWithPreviousBlock()
+
+moveCursorToPreviousBlock()
+moveCursorToNextBlock()
+
+showSlashMenu()
+hideSlashMenu()
+
+saveDocument()
+loadDocument()
+
+initializeEditor()
+```
+
+---
+
+# Known Bugs (Logged)
+
+### Bug 1 — Block Split
+
+Problem:
+
+```
+Enter in middle of block
+does not split correctly
+```
+
+Area:
+
+```
+keydown Enter logic
+```
+
+Will be fixed during:
+
+```
+Cursor Engine Upgrade (V6)
+```
+
+---
+
+### Bug 2 — Cursor Placement
+
+Problem:
+
+```
+Arrow navigation places cursor
+at wrong position
+```
+
+Example:
+
+```
+Block1
+Block2
+```
+
+ArrowUp → goes to **end of Block1**
+
+Instead of correct caret position.
+
+Will be fixed in:
+
+```
+Cursor Engine
+```
+
+---
+
+# Remaining Versions Roadmap
+
+### V5 — Lists
+
+Add:
+
+```
+• Bullet List
+1. Numbered List
+```
+
+New block types:
+
+```
+bullet
+numbered
+```
+
+Functions:
+
+```
+toggleList()
+indentList()
+outdentList()
+```
+
+Rendering:
+
+```
+<ul>
+<li>
+```
+
+---
+
+### V6 — Cursor Engine
+
+Improve:
+
+```
+cursor precision
+block splitting
+selection behavior
+```
+
+New utilities:
+
+```
+getCursorPosition()
+setCursorPosition()
+```
+
+Fixes:
+
+```
+Bug 1
+Bug 2
+```
+
+---
+
+### V7 — Markdown Shortcuts
+
+Typing patterns auto-create blocks.
+
+Examples:
+
+````
+# Heading
+* Bullet list
+``` code
+````
+
+Function:
+
+```
+handleMarkdownShortcuts()
+```
+
+---
+
+### V8 — Inline Code
+
+Example:
+
+```
+`console.log()`
+```
+
+New span property:
+
+```
+code:true
+```
+
+Rendering:
+
+```
+monospace font
+gray background
+```
+
+---
+
+### V9 — Code Blocks
+
+New block type:
+
+```
+code
+```
+
+Rendering:
+
+```
+<pre>
+<code>
+```
+
+Optional later:
+
+syntax highlighting.
+
+---
+
+### V10 — Selection Engine
+
+Professional editor system.
+
+Functions:
+
+```
+getSelectionRange()
+restoreSelection()
+splitSpans()
+mergeSpans()
+```
+
+This allows **complex formatting control**.
+
+Editors like ProseMirror use systems like this.
+
+---
+
+### V11 — Undo / Redo
+
+Add history stacks.
+
+Data:
+
+```
+history[]
+future[]
+```
+
+Functions:
+
+```
+saveHistory()
+undo()
+redo()
+```
+
+Shortcuts:
+
+```
+Ctrl + Z
+Ctrl + Shift + Z
+```
+
+---
+
+### V12 — Editor Polish
+
+Add:
+
+```
+placeholder text
+floating toolbar
+smooth cursor
+block spacing
+```
+
+---
+
+### V13 — Drag Blocks
+
+Drag and reorder blocks.
+
+New system:
+
+```
+dragStart
+dragOver
+drop
+```
+
+---
+
+### V14 — Command Menu Upgrade
+
+Slash menu becomes searchable.
+
+Example:
+
+```
+/he → Heading
+/pa → Paragraph
+```
+
+---
+
+### V15 — Tables
+
+Add table blocks.
+
+Structure:
+
+```
+table
+rows
+cells
+```
+
+---
+
+### V16 — Images
+
+Allow inserting images.
+
+Slash command:
+
+```
+/image
+```
+
+---
+
+# Final Lexus Docs Architecture
+
+By V16 your editor will look like:
+
+```
+Lexus Docs Engine
+
+Editor
+│
+├ Document Model
+├ Rendering Engine
+├ Formatting Engine
+├ Cursor Engine
+├ Selection Engine
+├ Command Engine
+├ History Engine
+└ Storage Engine
+```
+
+This becomes a **mini document editor framework**.
+
+---
+
+# Development Order
+
+Recommended path:
+
+```
+V5 Lists
+V6 Cursor Engine
+V7 Markdown Shortcuts
+V8 Inline Code
+V9 Code Blocks
+V10 Selection Engine
+V11 Undo Redo
+V12 UI Polish
+```
+
+---
+
+# Your Current Code Snippet
+
+Your rendering logic is correct:
+
+```javascript
+if (block.type === "heading") {
+
+    element = document.createElement("h2");
+
+} else {
+
+    element = document.createElement("p");
+
+}
+```
+
+This ensures **all blocks default to paragraph unless heading**.
+
+Good design choice.
+
+---
+
+# Future Prompt (IMPORTANT)
+
+If the chat resets later, use this prompt to continue the project.
+
+Copy this somewhere safe.
+
+```
+I am building a block-based document editor called Lexus Docs.
+
+Current features:
+- Document model with blocks
+- Paragraph and heading blocks
+- Block splitting and merging
+- Cursor navigation
+- Bold, italic, underline formatting
+- Toolbar
+- Slash command menu
+- Autosave with localStorage
+
+Architecture:
+documentModel
+order[]
+blocks{}
+
+Current JS functions:
+createBlock
+renderDocument
+mergeWithPreviousBlock
+moveCursorToPreviousBlock
+moveCursorToNextBlock
+showSlashMenu
+hideSlashMenu
+saveDocument
+loadDocument
+initializeEditor
+
+Known bugs:
+1. Block split bug
+2. Cursor placement bug
+
+Next step:
+Build V5 Lists system (bullet and numbered lists).
+
+Help me implement the next version cleanly.
+```
+
+---
+
+Take this for BLUEPRINT while Analyzing, ChatGPT (use the first one for reference):
+
+Got it. I’ll make a **clean blueprint like yours**, but based only on **what we planned in this chat** — progressing from **simple → Google Docs level**.
+
+I’ll structure it so you can **build each version step-by-step** like you wanted.
+
+---
+
+# LEXUS DOCS — MASTER DEVELOPMENT BLUEPRINT (V1 → V12)
+
+Goal: Build a **modern block-based document editor** similar to
+Google Docs / Notion.
+
+Architecture style:
+
+```
+Block-based editor
+Document Model
+Custom rendering engine
+Plugin-ready system
+```
+
+---
+
+# V1 — Core Editor Foundation
+
+Goal: Basic writing experience.
+
+### Document Model
+
+```
+documentModel
+ ├─ order[]
+ └─ blocks{}
+```
+
+Each block:
+
+```
+{
+ id
+ type
+ data: { text }
+}
+```
+
+### Features
+
+* paragraph block
+* heading block
+* block rendering engine
+* createBlock()
+* createId()
+
+### Editing
+
+* typing inside block
+* Enter → create new block
+* Backspace → merge blocks
+
+### Navigation
+
+* Arrow Up → previous block
+* Arrow Down → next block
+
+### Persistence
+
+* saveDocument()
+* loadDocument()
+* localStorage autosave
+
+---
+
+# V2 — Inline Text Formatting
+
+Goal: Rich text editing.
+
+### Toolbar
+
+Buttons:
+
+```
+Bold
+Italic
+Underline
+```
+
+### Formatting System
+
+Functions:
+
+```
+applyBold()
+applyItalic()
+applyUnderline()
+```
+
+### Model Upgrade
+
+Blocks store **HTML instead of plain text**.
+
+```
+data: {
+ text: "<b>Hello</b>"
+}
+```
+
+### Update System
+
+```
+updateCurrentBlock()
+```
+
+Sync DOM → documentModel.
+
+---
+
+# V3 — Cursor & Block Intelligence
+
+Goal: Smooth writing experience.
+
+### Block Navigation
+
+Improve cursor behavior.
+
+Features:
+
+```
+Arrow navigation between blocks
+Smart caret placement
+Cursor stays at correct position
+```
+
+### Block Merge
+
+Backspace at beginning:
+
+```
+mergeWithPreviousBlock()
+```
+
+### Cursor Movement
+
+```
+moveCursorToPreviousBlock()
+moveCursorToNextBlock()
+```
+
+---
+
+# V4 — Slash Command System
+
+Goal: Fast editor commands.
+
+Inspired by
+Notion.
+
+Typing:
+
+```
+/
+```
+
+opens command menu.
+
+### Slash Menu UI
+
+```
+/heading
+/paragraph
+```
+
+### Core Functions
+
+```
+showSlashMenu()
+hideSlashMenu()
+handleSlashCommand()
+```
+
+### Block Transform
+
+Slash commands change block type dynamically.
+
+---
+
+# V5 — Block Type Expansion
+
+Goal: More writing blocks.
+
+Add support for:
+
+```
+/list
+/quote
+/code
+/divider
+```
+
+### New Block Types
+
+```
+paragraph
+heading
+list
+quote
+code
+divider
+```
+
+### Rendering Logic
+
+renderDocument() must support all block types.
+
+---
+
+# V6 — Formatting Stability
+
+Goal: Reliable rich text editing.
+
+### Improvements
+
+Replace fragile formatting behavior.
+
+Add:
+
+```
+selection detection
+format state tracking
+```
+
+Toolbar buttons reflect active formatting.
+
+Example:
+
+```
+B (active)
+I
+U
+```
+
+---
+
+# V7 — Drag & Drop Blocks
+
+Goal: Flexible document editing.
+
+Inspired by
+Notion block movement.
+
+### Features
+
+```
+drag block
+drop block
+reorder documentModel.order
+```
+
+### UI
+
+Hover handle:
+
+```
+⋮⋮
+```
+
+Drag block vertically.
+
+---
+
+# V8 — Multi-Block Selection
+
+Goal: Advanced editing.
+
+Allow selecting:
+
+```
+multiple blocks
+multiple paragraphs
+```
+
+### Features
+
+```
+shift selection
+delete multiple blocks
+move multiple blocks
+```
+
+---
+
+# V9 — Document Toolbar System
+
+Goal: Professional editor controls.
+
+### Floating Toolbar
+
+Appears when selecting text.
+
+Example:
+
+```
+Bold
+Italic
+Underline
+Link
+```
+
+Similar to
+Google Docs.
+
+---
+
+# V10 — Real Document Structure
+
+Goal: Organize large documents.
+
+### Features
+
+```
+document title
+table of contents
+heading hierarchy
+```
+
+Example:
+
+```
+H1
+H2
+H3
+```
+
+Auto-generate outline.
+
+---
+
+# V11 — Real-Time Collaboration
+
+Goal: Multi-user editing.
+
+Inspired by
+Google Docs.
+
+### Features
+
+```
+multiple cursors
+live editing
+conflict resolution
+```
+
+### Technologies
+
+```
+WebSockets
+CRDT
+Operational Transform
+```
+
+---
+
+# V12 — Production Editor Engine
+
+Goal: Turn Lexus Docs into a **full editor framework**.
+
+Architecture:
+
+```
+Editor Core
+Block Engine
+Plugin System
+Renderer
+Command System
+```
+
+### Plugin API
+
+Example:
+
+```
+registerBlock()
+registerCommand()
+registerToolbarButton()
+```
+
+Developers can extend the editor.
+
+---
+
+# Final Product Vision
+
+Lexus Docs becomes:
+
+```
+Block-based editor
+Plugin architecture
+Collaborative writing platform
+```
+
+Comparable to:
+
+* Google Docs
+* Notion
+* Editor.js
+
+---
+
+🧠 Final Lexus Docs Architecture (V16) 
+
+Editor Core 
+│ 
+├── Document Model 
+├── Rendering Engine 
+├── Formatting Engine 
+├── Cursor Engine 
+├── History Engine 
+├── Command Engine 
+│ 
+├── UI 
+│   ├── Toolbar 
+│   ├── Slash Menu 
+│   └── Floating Toolbar 
+│ 
+└── Storage 
+   ├── Autosave 
+   ├── Export 
+   └── Cloud Sync 
+
+
