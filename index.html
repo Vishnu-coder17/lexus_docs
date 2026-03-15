@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lexus Docs</title>
+</head>
+<body>
+<!-- Toolbar and editor container -->
+
+<div id="toolbar">
+    <button id="addParagraph">Add Paragraph</button>
+    <button id="addHeading">Add Heading</button>
+
+    <button onclick="applyBold()">B</button>
+    <button onclick="applyItalic()">I</button>
+    <button onclick="applyUnderline()">U</button>
+</div>
+
+<div id="editor"></div>
+
+<div id="slashMenu" class="hidden">
+    <div class="slash-item" data-command="heading">Heading</div>
+    <div class="slash-item" data-command="paragraph">Paragraph</div>
+    <div class="slash-item" data-command="bullet">Bullet List</div>
+    <div class="slash-item" data-command="numbered">Numbered List</div>
+</div>
+    
+<script src="editor.js"></script>
+</body>
+</html>

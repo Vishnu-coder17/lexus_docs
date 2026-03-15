@@ -1,0 +1,28 @@
+.block {
+    outline: none;
+    margin: 6px 0;
+    min-height: 20px;
+}
+
+#slashMenu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px;
+    width: 180px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.slash-item {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.slash-item:hover {
+    background: #f2f2f2;
+}
